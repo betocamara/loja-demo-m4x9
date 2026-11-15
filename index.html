@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Loja Cambium Brasil</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: faixa de marca clara, vitrine em grade, carrinho em gaveta lateral, checkout em 3 etapas dentro da gaveta */
+:root{
+  --bg:#FFFFFF; --surface:#F8F9FA; --fg:#404040; --head:#003A70; --muted:#6B7280;
+  --line:#E7E7E7; --brand:#003A70; --accent:#D9027D; --link:#003A70; --ok:#008A96; --hi:#65A4EF;
+  --tile:#F8F9FA; --shadow:0 15px 60px -15px rgba(0,58,112,.12);
+  --font:'Open Sans','Montserrat',Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#000000; --surface:#0B1B2C; --fg:#E7E7E7; --head:#FFFFFF; --muted:#9CA3AF; --line:#1F3350;
+  --brand:#003A70; --link:#65A4EF; --shadow:0 15px 50px -15px rgba(0,0,0,.6); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#000000; --surface:#0B1B2C; --fg:#E7E7E7; --head:#FFFFFF; --muted:#9CA3AF; --line:#1F3350;
+  --brand:#003A70; --link:#65A4EF; --shadow:0 15px 50px -15px rgba(0,0,0,.6); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.55;margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button,input{font:inherit}
+:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto}
+.demo{background:var(--accent);color:#fff;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-align:center;padding:8px 12px;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)))}
+header.top{background:#fff;margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:12px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid #E7E7E7;position:sticky;top:env(safe-area-inset-top,0px);z-index:20}
+header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+header.top svg{height:46px;width:auto;display:block}
+@media(max-width:520px){header.top svg{height:34px}}
+.acts{display:flex;gap:10px;align-items:center}
+.loginbtn{background:#fff;color:#003A70;border:2px solid #003A70;border-radius:12px;padding:8px 16px;font-weight:700;cursor:pointer;transition:all .3s}
+.loginbtn:hover{background:#003A70;color:#fff}
+.cartbtn{display:flex;align-items:center;gap:10px;background:#003A70;color:#fff;border:0;border-radius:12px;padding:10px 16px;font-weight:700;cursor:pointer;transition:background .3s,box-shadow .3s}
+.cartbtn:hover{background:#D9027D;box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
+.cartbtn .n{background:#fff;color:#003A70;border-radius:99px;min-width:22px;height:22px;display:grid;place-items:center;font-size:12px;font-weight:800;padding:0 6px}
+.hero{position:relative;padding-block:56px 40px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;opacity:.05;background-image:radial-gradient(var(--brand) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
+.hero .wrap{position:relative}
+.label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--link)}
+h1{font-size:clamp(34px,6vw,64px);line-height:1.05;letter-spacing:-.02em;font-weight:800;color:var(--head);margin:12px 0 16px;max-width:16ch;text-wrap:balance}
+h1 span{color:var(--hi)}
+.hero p{font-size:18px;max-width:56ch;margin:0 0 24px}
+.facts{display:flex;flex-wrap:wrap;gap:10px}
+.facts span{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--head)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 24px}
+.filters button{border:1px solid var(--line);background:var(--bg);color:var(--head);border-radius:12px;padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s}
+.filters button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:24px;padding-bottom:64px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow);transition:transform .4s,box-shadow .4s}
+.card:hover{transform:translateY(-6px)}
+.card .ph{background:var(--tile);aspect-ratio:1/1;display:grid;place-items:center;padding:20px}
+.card .ph img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
+.card .bd{padding:20px;display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.card h3{margin:2px 0 0;font-size:20px;font-weight:700;color:var(--head)}
+.card .pn{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.card p{margin:4px 0 12px;font-size:14px;flex:1}
+.price{font-size:26px;font-weight:800;color:var(--head);font-variant-numeric:tabular-nums}
+.price small{display:block;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.buy{margin-top:12px;width:100%;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:13px 16px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:background .3s,transform .3s,box-shadow .3s}
+.buy:hover{background:var(--accent);transform:scale(1.02);box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
+footer{border-top:1px solid var(--line);padding-block:28px 40px;font-size:12px;color:var(--muted)}
+/* gaveta */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:40}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--bg);z-index:50;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.25);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.drawer header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.drawer h2{margin:0;font-size:20px;color:var(--head)}
+.x{background:none;border:1px solid var(--line);color:var(--head);border-radius:10px;width:36px;height:36px;cursor:pointer;font-size:18px;line-height:1}
+.dbody{flex:1;overflow:auto;padding:20px;min-height:0}
+.dfoot{border-top:1px solid var(--line);padding:16px 20px;background:var(--surface)}
+.row{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.row img{width:56px;height:56px;object-fit:contain;background:var(--tile);border-radius:10px;mix-blend-mode:normal}
+.row .t{flex:1;min-width:0}.row .t b{display:block;color:var(--head)}.row .t span{font-size:12px;color:var(--muted)}
+.qty{display:flex;align-items:center;gap:6px}
+.qty button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--head);cursor:pointer;font-weight:700}
+.tot{display:flex;justify-content:space-between;font-weight:800;font-size:18px;color:var(--head);margin-bottom:12px;font-variant-numeric:tabular-nums}
+.cta{width:100%;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:14px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:13px;cursor:pointer;transition:background .3s}
+.cta:hover{background:var(--accent)}
+.cta.ghost{background:none;color:var(--head);border:1px solid var(--line);margin-top:8px}
+.cta.ghost:hover{background:var(--surface)}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}
+.tabs button{border:2px solid var(--line);background:var(--bg);color:var(--head);border-radius:12px;padding:12px;font-weight:700;cursor:pointer}
+.tabs button[aria-pressed="true"]{border-color:var(--hi);background:color-mix(in srgb,var(--hi) 12%,var(--bg))}
+.f{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.f label{font-size:12px;font-weight:700;color:var(--head)}
+.f input{border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:10px;padding:11px 12px;width:100%}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.qr{display:grid;place-items:center;gap:10px;text-align:center}
+.qr svg{width:200px;height:200px;background:#fff;padding:10px;border-radius:12px;border:1px solid var(--line)}
+.copy{display:flex;gap:8px}.copy input{flex:1;min-width:0;font-size:12px}
+.copy button{border:1px solid var(--line);background:var(--bg);color:var(--head);border-radius:10px;padding:0 14px;font-weight:700;cursor:pointer}
+.note{font-size:12px;color:var(--muted);margin:10px 0}
+.ok{width:64px;height:64px;border-radius:50%;background:var(--ok);display:grid;place-items:center;margin:8px auto 16px}
+.center{text-align:center}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head><body>
+
+<div class="demo" role="note">Ambiente de demonstração. Nenhum pagamento é processado e nenhum dado é enviado.</div>
+
+<header class="top"><div class="wrap">
+<a href="#" aria-label="Cambium Networks">
+<svg viewBox="85 70 660 92" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cambium Networks">
+<path fill="#231F20" d="M707.3,114.1h-1.1v-9.6h-3.5v-1h8.2v1h-3.5V114.1z"/>
+<path fill="#231F20" d="M717.7,112.2l3.6-8.6h1.6v10.6h-1.1V105h0l-3.8,9.2h-0.6l-3.8-9.2h0v9.2h-1.1v-10.6h1.6L717.7,112.2z"/>
+<path fill="#231F20" d="M209.4,123.6v-0.1c0-10.4,7.8-19,18.9-19c6.8,0,10.9,2.4,14.4,5.7l-4.1,4.8c-2.9-2.7-6.1-4.6-10.3-4.6c-7,0-12.1,5.8-12.1,13v0.1c0,7.2,5.1,13,12.1,13c4.5,0,7.4-1.8,10.5-4.7l4.1,4.2c-3.8,4-8,6.5-14.9,6.5C217.4,142.5,209.4,134.1,209.4,123.6z"/>
+<path fill="#231F20" d="M245.9,133.9v-0.1c0-6,4.7-8.9,11.4-8.9c3.1,0,5.3,0.5,7.5,1.2v-0.7c0-3.9-2.4-6-6.9-6c-3.1,0-5.4,0.7-7.9,1.7l-1.7-5c3-1.4,6-2.3,10.4-2.3c4.1,0,7.2,1.1,9.2,3.1c2,2,3,4.9,3,8.6v16.4h-6.2v-3.5c-1.9,2.3-4.8,4-9,4C250.5,142.4,245.9,139.4,245.9,133.9z M264.9,131.9V130c-1.6-0.6-3.8-1.1-6.3-1.1c-4.1,0-6.5,1.7-6.5,4.6v0.1c0,2.7,2.4,4.2,5.4,4.2C261.7,137.8,264.9,135.4,264.9,131.9z"/>
+<path fill="#231F20" d="M277.1,114.1h6.3v4.2c1.8-2.5,4.2-4.8,8.4-4.8c4,0,6.8,1.9,8.3,4.9c2.2-2.9,5.1-4.9,9.3-4.9c6,0,9.7,3.8,9.7,10.6v17.7h-6.3v-15.7c0-4.4-2-6.8-5.6-6.8c-3.5,0-5.9,2.4-5.9,6.9v15.6H295V126c0-4.3-2.1-6.7-5.6-6.7c-3.5,0-5.9,2.6-5.9,6.9v15.6h-6.3V114.1z"/>
+<path fill="#231F20" d="M332,137.5v4.3h-6.3v-38.3h6.3v15.2c2-2.9,4.9-5.2,9.4-5.2c6.5,0,12.9,5.1,12.9,14.4v0.1c0,9.2-6.3,14.4-12.9,14.4C336.8,142.4,333.9,140.1,332,137.5z M347.8,128v-0.1c0-5.4-3.6-8.9-7.9-8.9c-4.3,0-8.1,3.6-8.1,8.9v0.1c0,5.3,3.8,8.9,8.1,8.9C344.3,136.9,347.8,133.5,347.8,128z"/>
+<path fill="#231F20" d="M359.6,103.9h6.8v6h-6.8V103.9z M359.8,114.1h6.4v27.7h-6.4V114.1z"/>
+<path fill="#231F20" d="M372.8,131.8v-17.6h6.3v15.7c0,4.3,2.2,6.7,5.9,6.7c3.7,0,6.2-2.5,6.2-6.8v-15.6h6.4v27.7h-6.4v-4.3c-1.8,2.6-4.4,4.9-8.7,4.9C376.4,142.4,372.8,138.2,372.8,131.8z"/>
+<path fill="#231F20" d="M404.3,114.1h6.3v4.2c1.8-2.5,4.2-4.8,8.4-4.8c4,0,6.8,1.9,8.3,4.9c2.2-2.9,5.1-4.9,9.3-4.9c6,0,9.7,3.8,9.7,10.6v17.7h-6.3v-15.7c0-4.4-2-6.8-5.6-6.8c-3.5,0-5.9,2.4-5.9,6.9v15.6h-6.3V126c0-4.3-2.1-6.7-5.6-6.7c-3.5,0-5.9,2.6-5.9,6.9v15.6h-6.3V114.1z"/>
+<path fill="#231F20" d="M467.9,105.1h6l19.7,25.4v-25.4h6.4v36.7h-5.4l-20.3-26.1v26.1h-6.3V105.1z"/>
+<path fill="#231F20" d="M505.7,128.1V128c0-7.9,5.6-14.4,13.5-14.4c8.8,0,13.3,6.9,13.3,14.9c0,0.6-0.1,1.2-0.1,1.8h-20.4c0.7,4.5,3.9,7,8,7c3.1,0,5.3-1.2,7.5-3.3l3.7,3.3c-2.6,3.1-6.2,5.2-11.3,5.2C511.9,142.5,505.7,136.7,505.7,128.1z M526.2,126c-0.4-4.1-2.8-7.3-7-7.3c-3.9,0-6.6,3-7.2,7.3H526.2z"/>
+<path fill="#231F20" d="M538.9,134.2v-14.6h-3.5v-5.5h3.5v-7.6h6.4v7.6h7.4v5.5h-7.4v13.6c0,2.5,1.3,3.5,3.4,3.5c1.4,0,2.7-0.3,3.9-0.9v5.2c-1.6,0.9-3.3,1.4-5.7,1.4C542.2,142.3,538.9,140.3,538.9,134.2z"/>
+<path fill="#231F20" d="M555.5,114.1h6.5l5.6,19l6.1-19.1h5.5l6.1,19.1l5.7-19h6.4l-9.1,27.9h-5.7l-6.2-18.9l-6.2,18.9h-5.7L555.5,114.1z"/>
+<path fill="#231F20" d="M598.7,128.1V128c0-7.9,6.3-14.5,14.8-14.5s14.7,6.5,14.7,14.4v0.1c0,7.9-6.3,14.4-14.9,14.4C605,142.5,598.7,136,598.7,128.1z M621.9,128.1V128c0-4.9-3.5-8.9-8.5-8.9c-5.1,0-8.3,4-8.3,8.8v0.1c0,4.8,3.5,8.9,8.4,8.9C618.7,136.9,621.9,132.9,621.9,128.1z"/>
+<path fill="#231F20" d="M633.4,114.1h6.4v6.2c1.7-4.1,4.9-7,9.8-6.8v6.7h-0.4c-5.6,0-9.4,3.6-9.4,11v10.5h-6.4V114.1z"/>
+<path fill="#231F20" d="M653.7,103.5h6.3v22.9l11.5-12.3h7.7l-11,11.3l11.4,16.4h-7.5l-8.2-12l-3.9,4.1v7.9h-6.3V103.5z"/>
+<path fill="#231F20" d="M680.6,138.2l2.8-4.3c3,2.3,6.2,3.4,9.1,3.4c2.7,0,4.3-1.2,4.3-3v-0.1c0-2.2-2.9-2.9-6.2-3.9c-4.1-1.2-8.7-2.8-8.7-8.1v-0.1c0-5.2,4.4-8.4,9.9-8.4c3.5,0,7.2,1.2,10.2,3.1l-2.5,4.5c-2.7-1.6-5.5-2.6-7.8-2.6c-2.5,0-3.9,1.2-3.9,2.7v0.1c0,2,3,2.9,6.2,3.9c4,1.3,8.6,3.1,8.6,8.1v0.1c0,5.8-4.5,8.7-10.3,8.7C688.4,142.4,684.1,141,680.6,138.2z"/>
+<path fill="#003D79" d="M152.4,92.6c-6.4,3.6-11.1,9.5-13,16.5c-2,7.1-1.1,14.5,2.5,20.9c4.9,8.7,14.1,14.1,24.1,14.1c3.3,0,6.5-0.6,9.5-1.7c5.4-7.7,8.6-17.1,8.6-27.2c0-8.5-2.2-16.5-6.2-23.3c-3.7-1.8-7.8-2.8-12-2.8C161.1,89.1,156.5,90.3,152.4,92.6z"/>
+<path fill="#003D79" d="M115.1,123.6c2.5,4.5,5.7,8.5,9.5,11.9c-1.7-2-3.2-4.2-4.5-6.6c-11.9-21.3-5-48.1,15.4-61c-5.8,0.1-11.4,1.3-16.5,3.4C107.7,86,105.5,106.5,115.1,123.6z"/>
+<path fill="#003D79" d="M109.9,126.5c-8.8-15.7-8.8-34.1-1.5-49.2c-11.5,8.6-19,22.4-19,37.9c0,26.1,21.2,47.3,47.3,47.3c10.5,0,20.2-3.4,28-9.2c-2.6,0.4-5.3,0.6-8,0.6C137.3,153.9,119.4,143.4,109.9,126.5z"/>
+<path fill="#003D79" d="M146.8,82.7c-7.8,4.3-13.4,11.5-15.8,20c-2.4,8.6-1.4,17.6,3,25.3c0.4,0.7,0.8,1.3,1.2,2c-3.1-7.1-3.7-15-1.6-22.6c2.4-8.6,8.1-15.8,15.9-20.1c5-2.8,10.6-4.3,16.3-4.3c2.1,0,4.2,0.2,6.2,0.6c-1.6-1.8-3.3-3.5-5.2-5c-1.2-0.1-2.5-0.2-3.8-0.2C157.4,78.5,151.7,79.9,146.8,82.7z"/>
+<path fill="#003D79" d="M125.3,126c1.1,2,2.4,3.9,3.8,5.6c-0.1-0.2-0.3-0.4-0.4-0.6c-5.1-9.2-6.4-19.8-3.5-29.9c2.9-10.1,9.5-18.5,18.6-23.6c4.3-2.4,9.1-4,14-4.7c-3.4-1.7-7.1-3-11-3.9c-2.1,0.8-4.2,1.7-6.2,2.8C121.5,82.5,114.6,106.8,125.3,126z"/>
+<path fill="#FFFFFF" d="M175.4,142.4c-3.1,1.1-6.3,1.7-9.5,1.7c-10,0-19.2-5.4-24.1-14.1c-3.6-6.4-4.5-13.8-2.5-20.9c2-7.1,6.6-12.9,13-16.5c4.1-2.3,8.7-3.5,13.4-3.5c4.2,0,8.3,1,12,2.8c-1.7-2.9-3.6-5.7-5.9-8.2c-2-0.4-4.1-0.6-6.2-0.6c-5.7,0-11.3,1.5-16.3,4.3c-7.8,4.4-13.4,11.5-15.9,20.1c-2.1,7.6-1.6,15.5,1.6,22.6c-0.4-0.6-0.8-1.3-1.2-2c-4.3-7.8-5.4-16.8-3-25.3c2.4-8.6,8-15.7,15.8-20c5-2.8,10.6-4.3,16.2-4.3c1.3,0,2.5,0.1,3.8,0.2c-2.7-2.3-5.8-4.2-9-5.8c-4.9,0.7-9.6,2.2-14,4.7c-9.2,5.1-15.8,13.5-18.6,23.6c-2.9,10.1-1.6,20.7,3.5,29.9c0.1,0.2,0.3,0.4,0.4,0.6c-1.4-1.7-2.7-3.6-3.8-5.6c-10.7-19.2-3.9-43.5,15.3-54.3c2-1.1,4.1-2,6.2-2.8c-3.3-0.7-6.7-1.1-10.2-1.1c-0.4,0-0.8,0-1.2,0c-20.3,12.9-27.3,39.7-15.4,61c1.3,2.3,2.8,4.5,4.5,6.6c-3.7-3.4-6.9-7.4-9.5-11.9c-9.6-17.1-7.4-37.6,3.8-52.3c-3.8,1.5-7.4,3.5-10.6,6c-7.2,15.2-7.3,33.5,1.5,49.2c9.5,16.9,27.4,27.4,46.8,27.4c2.7,0,5.4-0.2,8-0.6C168.8,150.3,172.4,146.6,175.4,142.4z"/>
+</svg></a>
+<div class="acts"><button class="loginbtn" id="openLogin" type="button">Entrar</button><button class="cartbtn" id="openCart" type="button" aria-label="Abrir carrinho"><span>Carrinho</span><span class="n" id="count">0</span></button></div>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+
+<h1>Conecte mais. <span>Gaste menos.</span></h1>
+<p>Oito produtos Cambium Networks para banda larga fixa sem fio, Wi-Fi corporativo e switching. Preço em reais, pagamento por PIX ou cartão.</p>
+<div class="facts"><span>PIX e cartão</span><span>Gerência pelo cnMaestro</span><span>Preços em BRL</span></div>
+</div></section>
+
+<div class="wrap">
+<div class="filters" role="group" aria-label="Filtrar por categoria" id="filters"></div>
+<div class="grid" id="grid"></div>
+</div>
+</main>
+
+<footer><div class="wrap">Preços-base de referência, validar contra a tabela vigente antes de qualquer proposta. Fotos: site oficial da Cambium Networks. Esta página é uma simulação de loja e não gera pedido real.</div></footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dtitle" hidden>
+<header><h2 id="dtitle">Carrinho</h2><button class="x" id="close" type="button" aria-label="Fechar">&times;</button></header>
+<div class="dbody" id="dbody"></div>
+<div class="dfoot" id="dfoot"></div>
+</aside>
+
+<script>
+/* ponytail: dados em um bloco so. Preco-base da tabela enviada em 2026-11-15, validar contra tabela vigente. */
+var P=[
+ {id:"force-4525l",nome:"Force 4525L",pn:"C050940M651B",cat:"Radio",preco:2121.25,d:"Módulo assinante ePMP 5 GHz com antena integrada, para enlaces de banda larga fixa sem fio."},
+ {id:"force-400c",nome:"Force 400C",pn:"C050940C621D",cat:"Radio",preco:5694.62,d:"Módulo assinante ePMP da série Force 400, conectorizado, para uso externo com antena à sua escolha."},
+ {id:"force-4600c",nome:"Force 4600C",pn:"C060940C621C",cat:"Radio",preco:5511.39,d:"Módulo assinante ePMP 6 GHz conectorizado, com dois conectores RP-SMA para antena externa."},
+ {id:"force-4625",nome:"Force 4625",pn:"C060940M641B",cat:"Radio",preco:2702.42,d:"Módulo assinante ePMP 6 GHz com antena integrada, para ampliar capacidade em espectro limitado."},
+ {id:"xv2-21x",nome:"XV2-21X",pn:"XV2-21X0B00-RW",cat:"Wi-Fi",preco:1835.59,d:"Ponto de acesso Wi-Fi 6 para ambiente interno, gerenciado pelo cnMaestro."},
+ {id:"xv2-23t",nome:"XV2-23T",pn:"XV2-23T0B00-RW",cat:"Wi-Fi",preco:3092.84,d:"Ponto de acesso Wi-Fi 6 para ambiente externo, gerenciado pelo cnMaestro."},
+ {id:"x7-35x",nome:"X7-35X",pn:"X7-35X-0A00-RW",cat:"Wi-Fi",preco:3998.06,d:"Ponto de acesso Wi-Fi 7 para ambiente interno, para redes corporativas de alta densidade."},
+ {id:"ex2028p",nome:"EX2028-P",pn:"MX-EX2028PxA-0",cat:"Switch",preco:10036.54,d:"Switch cnMatrix com PoE, operado junto aos pontos de acesso cnPilot pelo cnMaestro."}
+];
+var brl=function(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})};
+var $=function(s){return document.querySelector(s)};
+var user=null,addr={},cart={},filter="Todos",step="cart",pay="pix",lastFocus=null;
+
+function renderFilters(){
+  var cats=["Todos","Radio","Wi-Fi","Switch"];
+  $("#filters").innerHTML=cats.map(function(c){return '<button type="button" data-c="'+c+'" aria-pressed="'+(c===filter)+'">'+c+'</button>'}).join("");
+}
+function renderGrid(){
+  $("#grid").innerHTML=P.filter(function(p){return filter==="Todos"||p.cat===filter}).map(function(p){
+    return '<article class="card"><div class="ph"><img src="assets/produtos/'+p.id+'.png" alt="'+p.nome+'" loading="lazy"></div>'+
+    '<div class="bd"><span class="label">'+p.cat+'</span><h3>'+p.nome+'</h3><span class="pn">PN '+p.pn+'</span><p>'+p.d+'</p>'+
+    '<div class="price">'+brl(p.preco)+'<small>Preço-base, validar contra tabela vigente</small></div>'+
+    '<button class="buy" type="button" data-id="'+p.id+'">Comprar</button></div></article>';
+  }).join("");
+}
+function items(){return P.filter(function(p){return cart[p.id]})}
+function total(){return items().reduce(function(s,p){return s+p.preco*cart[p.id]},0)}
+function count(){return Object.keys(cart).reduce(function(s,k){return s+cart[k]},0)}
+function updCount(){$("#count").textContent=count()}
+
+function openDrawer(){lastFocus=document.activeElement;$("#scrim").hidden=false;$("#drawer").hidden=false;renderDrawer();$("#close").focus()}
+function closeDrawer(){$("#scrim").hidden=true;$("#drawer").hidden=true;if(step==="done"){cart={};updCount()}step="cart";if(lastFocus)lastFocus.focus()}
+
+function qrSvg(){
+  var n=25,seed=20261115,r=function(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296},s='';
+  var fin=function(x,y){return (x<7&&y<7)||(x>=n-7&&y<7)||(x<7&&y>=n-7)};
+  for(var y=0;y<n;y++)for(var x=0;x<n;x++){
+    var on;
+    if(fin(x,y)){var lx=x<7?x:x-(n-7),ly=y<7?y:y-(n-7);on=(lx===0||lx===6||ly===0||ly===6)||(lx>=2&&lx<=4&&ly>=2&&ly<=4)}
+    else on=r()>.5;
+    if(on)s+='<rect x="'+x+'" y="'+y+'" width="1" height="1"/>';
+  }
+  return '<svg viewBox="0 0 '+n+' '+n+'" role="img" aria-label="QR Code ilustrativo, não pagável" fill="#000" shape-rendering="crispEdges">'+s+'</svg>';
+}
+
+function renderDrawer(){
+  var b=$("#dbody"),f=$("#dfoot"),t=$("#dtitle");
+  if(step==="cart"){
+    t.textContent="Carrinho";
+    var it=items();
+    if(!it.length){b.innerHTML='<p class="center" style="padding:40px 0">Seu carrinho está vazio. Escolha um produto na vitrine.</p>';f.innerHTML='';return}
+    b.innerHTML=it.map(function(p){return '<div class="row"><img src="assets/produtos/'+p.id+'.png" alt=""><div class="t"><b>'+p.nome+'</b><span>'+brl(p.preco)+'</span></div>'+
+      '<div class="qty"><button type="button" data-q="-1" data-id="'+p.id+'" aria-label="Diminuir '+p.nome+'">-</button><span>'+cart[p.id]+'</span><button type="button" data-q="1" data-id="'+p.id+'" aria-label="Aumentar '+p.nome+'">+</button></div></div>'}).join("");
+    f.innerHTML='<div class="tot"><span>Total</span><span>'+brl(total())+'</span></div><button class="cta" type="button" data-go="addr">Continuar para entrega</button>';
+  }else if(step==="pay"){
+    t.textContent="Pagamento";
+    b.innerHTML='<div class="tabs" role="group" aria-label="Forma de pagamento"><button type="button" data-pay="pix" aria-pressed="'+(pay==="pix")+'">PIX</button><button type="button" data-pay="card" aria-pressed="'+(pay==="card")+'">Cartão</button></div>'+
+    (pay==="pix"?
+      '<div class="qr">'+qrSvg()+'<p class="note" style="margin:0">QR Code ilustrativo. Não é um PIX real e não pode ser pago.</p>'+
+      '<div class="copy" style="width:100%"><input id="pixc" readonly value="DEMO.PIX.0000.NAO-PAGAVEL" aria-label="Código PIX copia e cola"><button type="button" id="cp">Copiar</button></div></div>'
+    :
+      '<form id="cf" autocomplete="off" novalidate>'+
+      '<div class="f"><label for="cn">Número do cartão</label><input id="cn" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" autocomplete="off"></div>'+
+      '<div class="f"><label for="cname">Nome impresso no cartão</label><input id="cname" placeholder="NOME SOBRENOME" autocomplete="off"></div>'+
+      '<div class="two"><div class="f"><label for="cv">Validade</label><input id="cv" inputmode="numeric" maxlength="5" placeholder="MM/AA" autocomplete="off"></div>'+
+      '<div class="f"><label for="cc">CVV</label><input id="cc" inputmode="numeric" maxlength="4" placeholder="000" autocomplete="off"></div></div>'+
+      '<p class="note">Formulário de demonstração. Nenhum dado é enviado ou armazenado.</p></form>');
+    f.innerHTML='<div class="tot"><span>Total</span><span>'+brl(total())+'</span></div><button class="cta" type="button" data-go="done">'+(pay==="pix"?'Simular pagamento PIX':'Simular pagamento com cartão')+'</button><button class="cta ghost" type="button" data-go="addr">Voltar à entrega</button>';
+  }else if(step==="addr"){
+    t.textContent="Entrega";
+    var fld=function(k,l,ph){return '<div class="f"><label for="a_'+k+'">'+l+'</label><input id="a_'+k+'" data-k="'+k+'" value="'+(addr[k]||"")+'" placeholder="'+ph+'" autocomplete="off"></div>'};
+    b.innerHTML=(user?'<p class="note" style="margin-top:0">Comprando como '+user+'</p>':'<p class="note" style="margin-top:0">Já tem conta? <a href="#" id="toLogin" style="color:var(--link);font-weight:700">Entrar</a></p>')+
+      fld("nome","Nome completo ou razão social","Empresa Exemplo Ltda")+fld("doc","CPF ou CNPJ","00.000.000/0000-00")+fld("email","E-mail","compras@empresa.com.br")+fld("tel","Telefone","(21) 90000-0000")+
+      '<div class="two">'+fld("cep","CEP","00000-000")+fld("uf","UF","RJ")+'</div>'+fld("rua","Endereço","Rua Exemplo")+'<div class="two">'+fld("num","Número","100")+fld("comp","Complemento","Sala 2")+'</div>'+fld("cidade","Cidade","Rio de Janeiro");
+    f.innerHTML='<div class="tot"><span>Total</span><span>'+brl(total())+'</span></div><button class="cta" type="button" data-go="pay">Continuar para o pagamento</button><button class="cta ghost" type="button" data-go="cart">Voltar ao carrinho</button>';
+  }else if(step==="login"){
+    t.textContent="Entrar";
+    b.innerHTML='<div class="f"><label for="lg_e">E-mail</label><input id="lg_e" type="email" placeholder="voce@empresa.com.br" autocomplete="off"></div><div class="f"><label for="lg_p">Senha</label><input id="lg_p" type="password" placeholder="Qualquer senha" autocomplete="off"></div><p class="note">Login de demonstração. Qualquer e-mail entra.</p>';
+    f.innerHTML='<button class="cta" type="button" data-go="dologin">Entrar</button><button class="cta ghost" type="button" data-go="close">Cancelar</button>';
+  }else{
+    t.textContent="Pedido simulado";
+    var n="DEMO-"+Math.floor(100000+Math.random()*900000);
+    b.innerHTML='<div class="center" style="padding-top:24px"><div class="ok"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>'+
+    '<h2 style="color:var(--head);margin:0 0 8px">Pagamento '+(pay==="pix"?"PIX":"com cartão")+' confirmado na simulação</h2>'+
+    '<p>Pedido <b>'+n+'</b> no valor de <b>'+brl(total())+'</b>.</p>'+(addr.rua?'<p class="note">Entrega em: '+[addr.rua,addr.num,addr.cidade,addr.uf].filter(Boolean).join(", ")+'</p>':'')+'<p class="note">Este é um fluxo de demonstração. Nenhuma cobrança foi feita e nenhum pedido existe.</p></div>';
+    f.innerHTML='<button class="cta" type="button" data-go="close">Voltar à loja</button>';
+  }
+}
+
+document.addEventListener("click",function(e){
+  var el=e.target.closest("button");if(!el)return;
+  if(el.id==="openCart"){step="cart";openDrawer()}
+  else if(el.id==="openLogin"){step="login";openDrawer()}
+  else if(el.dataset.go==="dologin"){var em=$("#lg_e").value.trim()||"visitante@demo.com";user=em;addr.email=addr.email||em;$("#openLogin").textContent="Olá, "+em.split("@")[0];closeDrawer()}
+  else if(el.id==="close"){closeDrawer()}
+  else if(el.dataset.c){filter=el.dataset.c;renderFilters();renderGrid()}
+  else if(el.classList.contains("buy")){cart[el.dataset.id]=(cart[el.dataset.id]||0)+1;updCount();step="cart";openDrawer()}
+  else if(el.dataset.q){var id=el.dataset.id;cart[id]=(cart[id]||0)+Number(el.dataset.q);if(cart[id]<=0)delete cart[id];updCount();renderDrawer()}
+  else if(el.dataset.pay){pay=el.dataset.pay;renderDrawer()}
+  else if(el.id==="cp"){var i=$("#pixc");var ok=function(){el.textContent="Copiado"};try{navigator.clipboard.writeText(i.value).then(ok,function(){i.select()})}catch(x){i.select()}}
+  else if(el.dataset.go==="close"){closeDrawer()}
+  else if(el.dataset.go){step=el.dataset.go;renderDrawer()}
+});
+document.addEventListener("click",function(e){if(e.target.id==="scrim")closeDrawer()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("#drawer").hidden)closeDrawer()});
+document.addEventListener("click",function(e){if(e.target.id==="toLogin"){e.preventDefault();step="login";renderDrawer()}});
+document.addEventListener("input",function(e){
+  var el=e.target;
+  if(el.dataset&&el.dataset.k)addr[el.dataset.k]=el.value;
+  if(el.id==="a_cep"){var d=el.value.replace(/\D/g,"").slice(0,8);el.value=d.length>5?d.slice(0,5)+"-"+d.slice(5):d;addr.cep=el.value;
+    if(d.length===8)fetch("https://viacep.com.br/ws/"+d+"/json/").then(function(r){return r.json()}).then(function(j){if(j.erro)return;
+      [["rua",j.logradouro],["cidade",j.localidade],["uf",j.uf]].forEach(function(p){addr[p[0]]=p[1];var i=$("#a_"+p[0]);if(i)i.value=p[1]});
+      var n=$("#a_num");if(n)n.focus()}).catch(function(){/* sem rede ou bloqueado: usuario digita o endereco */})}
+  if(el.id==="cn")el.value=el.value.replace(/\D/g,"").slice(0,16).replace(/(.{4})/g,"$1 ").trim();
+  if(el.id==="cv"){var d=el.value.replace(/\D/g,"").slice(0,4);el.value=d.length>2?d.slice(0,2)+"/"+d.slice(2):d}
+  if(el.id==="cc")el.value=el.value.replace(/\D/g,"").slice(0,4);
+});
+renderFilters();renderGrid();updCount();
+</script>
+</body></html>
