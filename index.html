@@ -9,16 +9,16 @@
 /* Layout: faixa de marca clara, vitrine em grade, carrinho em gaveta lateral, checkout em 3 etapas dentro da gaveta */
 :root{
   --bg:#FFFFFF; --surface:#F8F9FA; --fg:#404040; --head:#003A70; --muted:#6B7280;
-  --line:#E7E7E7; --brand:#003A70; --accent:#D9027D; --link:#003A70; --ok:#008A96; --hi:#65A4EF;
+  --line:#E7E7E7; --brand:#003A70; --accent:#D9027D; --link:#003A70; --ok:#008A96; --hi:#65A4EF; --err:#D9027D;
   --tile:#F8F9FA; --shadow:0 15px 60px -15px rgba(0,58,112,.12);
   --font:'Open Sans','Montserrat',Arial,sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#000000; --surface:#0B1B2C; --fg:#E7E7E7; --head:#FFFFFF; --muted:#9CA3AF; --line:#1F3350;
-  --brand:#003A70; --link:#65A4EF; --shadow:0 15px 50px -15px rgba(0,0,0,.6); color-scheme:dark}}
+  --brand:#003A70; --link:#65A4EF; --err:color-mix(in srgb,#D9027D 70%,#fff); --shadow:0 15px 50px -15px rgba(0,0,0,.6); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#000000; --surface:#0B1B2C; --fg:#E7E7E7; --head:#FFFFFF; --muted:#9CA3AF; --line:#1F3350;
-  --brand:#003A70; --link:#65A4EF; --shadow:0 15px 50px -15px rgba(0,0,0,.6); color-scheme:dark}
+  --brand:#003A70; --link:#65A4EF; --err:color-mix(in srgb,#D9027D 70%,#fff); --shadow:0 15px 50px -15px rgba(0,0,0,.6); color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.55;margin:0;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -40,8 +40,7 @@ header.top svg{height:46px;width:auto;display:block}
 .hero::before{content:"";position:absolute;inset:0;opacity:.05;background-image:radial-gradient(var(--brand) 1px,transparent 1px);background-size:28px 28px;pointer-events:none}
 .hero .wrap{position:relative}
 .label{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--link)}
-h1{font-size:clamp(34px,6vw,64px);line-height:1.05;letter-spacing:-.02em;font-weight:800;color:var(--head);margin:12px 0 16px;max-width:16ch;text-wrap:balance}
-h1 span{color:var(--hi)}
+h1{font-size:clamp(34px,6vw,64px);line-height:1.05;letter-spacing:-.02em;font-weight:800;color:var(--head);margin:12px 0 16px;max-width:20ch;text-wrap:balance}
 .hero p{font-size:18px;max-width:56ch;margin:0 0 24px}
 .facts{display:flex;flex-wrap:wrap;gap:10px}
 .facts span{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--head)}
@@ -62,6 +61,24 @@ h1 span{color:var(--hi)}
 .buy{margin-top:12px;width:100%;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:13px 16px;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;transition:background .3s,transform .3s,box-shadow .3s}
 .buy:hover{background:var(--accent);transform:scale(1.02);box-shadow:0 10px 30px -10px rgba(0,0,0,.35)}
 footer{border-top:1px solid var(--line);padding-block:28px 40px;font-size:12px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 2px}
+.chips span{font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:8px;padding:2px 9px;color:var(--head)}
+.chips span:first-child{background:var(--brand);border-color:var(--brand);color:#fff}
+.cnt{margin-left:auto;align-self:center;font-size:12px;color:var(--muted)}
+.steps{display:flex;gap:8px;list-style:none;margin:0;padding:12px 20px;border-bottom:1px solid var(--line);font-size:12px;font-weight:700;color:var(--muted)}
+.steps li{display:flex;align-items:center;gap:6px}
+.steps li b{width:22px;height:22px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:11px}
+.steps li.on{color:var(--head)}.steps li.on b{background:var(--brand);border-color:var(--brand);color:#fff}
+.steps li.dn b{background:var(--ok);border-color:var(--ok);color:#fff}
+.steps li:not(.on) .lb{display:none}
+.sum{border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:16px;background:var(--surface)}
+.sum summary{cursor:pointer;font-weight:700;color:var(--head)}
+.sl{display:flex;justify-content:space-between;gap:12px;padding:6px 0;font-size:13px;font-variant-numeric:tabular-nums}
+.fr{font-size:12px;color:var(--muted);margin:0 0 8px}
+.fs{border:0;padding:0;margin:0 0 8px;min-width:0}
+.fs legend{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--link);padding:0;margin-bottom:8px}
+.err{font-size:12px;font-weight:600;color:var(--err);min-height:0}
+.f input[aria-invalid="true"]{border-color:var(--err)}
 /* gaveta */
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:40}
 .drawer{position:fixed;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--bg);z-index:50;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.25);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -134,53 +151,83 @@ footer{border-top:1px solid var(--line);padding-block:28px 40px;font-size:12px;c
 <main>
 <section class="hero"><div class="wrap">
 
-<h1>Conecte mais. <span>Gaste menos.</span></h1>
-<p>Oito produtos Cambium Networks para banda larga fixa sem fio, Wi-Fi corporativo e switching. Preço em reais, pagamento por PIX ou cartão.</p>
+<h1>Rádios, Wi-Fi e switch Cambium com preço em reais.</h1>
+<p>Oito produtos para banda larga fixa sem fio, Wi-Fi corporativo e switching. Filtre por banda ou geração e pague por PIX ou cartão.</p>
 <div class="facts"><span>PIX e cartão</span><span>Gerência pelo cnMaestro</span><span>Preços em BRL</span></div>
 </div></section>
 
 <div class="wrap">
-<div class="filters" role="group" aria-label="Filtrar por categoria" id="filters"></div>
+<div class="filters" role="group" aria-label="Filtrar por banda ou geração" id="filters"></div>
 <div class="grid" id="grid"></div>
 </div>
 </main>
 
-<footer><div class="wrap">Preços-base de referência, validar contra a tabela vigente antes de qualquer proposta. Fotos: site oficial da Cambium Networks. Esta página é uma simulação de loja e não gera pedido real.</div></footer>
+<footer><div class="wrap">Preços-base de referência, validar contra a tabela vigente antes de qualquer proposta. Banda, geração de Wi-Fi e demais especificações: validar contra o datasheet vigente. Fotos: site oficial da Cambium Networks. Esta página é uma simulação de loja e não gera pedido real.</div></footer>
 
 <div class="scrim" id="scrim" hidden></div>
 <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dtitle" hidden>
 <header><h2 id="dtitle">Carrinho</h2><button class="x" id="close" type="button" aria-label="Fechar">&times;</button></header>
+<div id="steps"></div>
 <div class="dbody" id="dbody"></div>
 <div class="dfoot" id="dfoot"></div>
 </aside>
 
 <script>
-/* ponytail: dados em um bloco so. Preco-base da tabela enviada em 2026-11-15, validar contra tabela vigente. */
+/* Dados em um bloco so. Preco-base da tabela enviada em 2026-11-15, validar contra tabela vigente.
+   Banda, geracao Wi-Fi e demais specs: validar contra o datasheet vigente. */
 var P=[
- {id:"force-4525l",nome:"Force 4525L",pn:"C050940M651B",cat:"Radio",preco:2121.25,d:"Módulo assinante ePMP 5 GHz com antena integrada, para enlaces de banda larga fixa sem fio."},
- {id:"force-400c",nome:"Force 400C",pn:"C050940C621D",cat:"Radio",preco:5694.62,d:"Módulo assinante ePMP da série Force 400, conectorizado, para uso externo com antena à sua escolha."},
- {id:"force-4600c",nome:"Force 4600C",pn:"C060940C621C",cat:"Radio",preco:5511.39,d:"Módulo assinante ePMP 6 GHz conectorizado, com dois conectores RP-SMA para antena externa."},
- {id:"force-4625",nome:"Force 4625",pn:"C060940M641B",cat:"Radio",preco:2702.42,d:"Módulo assinante ePMP 6 GHz com antena integrada, para ampliar capacidade em espectro limitado."},
- {id:"xv2-21x",nome:"XV2-21X",pn:"XV2-21X0B00-RW",cat:"Wi-Fi",preco:1835.59,d:"Ponto de acesso Wi-Fi 6 para ambiente interno, gerenciado pelo cnMaestro."},
- {id:"xv2-23t",nome:"XV2-23T",pn:"XV2-23T0B00-RW",cat:"Wi-Fi",preco:3092.84,d:"Ponto de acesso Wi-Fi 6 para ambiente externo, gerenciado pelo cnMaestro."},
- {id:"x7-35x",nome:"X7-35X",pn:"X7-35X-0A00-RW",cat:"Wi-Fi",preco:3998.06,d:"Ponto de acesso Wi-Fi 7 para ambiente interno, para redes corporativas de alta densidade."},
- {id:"ex2028p",nome:"EX2028-P",pn:"MX-EX2028PxA-0",cat:"Switch",preco:10036.54,d:"Switch cnMatrix com PoE, operado junto aos pontos de acesso cnPilot pelo cnMaestro."}
+ {id:"force-4525l",nome:"Force 4525L",pn:"C050940M651B",cat:"Rádio",f:"5 GHz",t:["5 GHz","Antena integrada"],preco:2121.25,d:"Módulo assinante ePMP 5 GHz com antena integrada, para enlaces de banda larga fixa sem fio."},
+ {id:"force-400c",nome:"Force 400C",pn:"C050940C621D",cat:"Rádio",f:"5 GHz",t:["5 GHz","Conectorizado"],preco:5694.62,d:"Módulo assinante ePMP da série Force 400, conectorizado, para uso externo com antena à sua escolha."},
+ {id:"force-4600c",nome:"Force 4600C",pn:"C060940C621C",cat:"Rádio",f:"6 GHz",t:["6 GHz","Conectorizado"],preco:5511.39,d:"Módulo assinante ePMP 6 GHz conectorizado, com dois conectores RP-SMA para antena externa."},
+ {id:"force-4625",nome:"Force 4625",pn:"C060940M641B",cat:"Rádio",f:"6 GHz",t:["6 GHz","Antena integrada"],preco:2702.42,d:"Módulo assinante ePMP 6 GHz com antena integrada, para ampliar capacidade em espectro limitado."},
+ {id:"xv2-21x",nome:"XV2-21X",pn:"XV2-21X0B00-RW",cat:"Wi-Fi",f:"Wi-Fi 6",t:["Wi-Fi 6","Interno"],preco:1835.59,d:"Ponto de acesso Wi-Fi 6 para ambiente interno, gerenciado pelo cnMaestro."},
+ {id:"xv2-23t",nome:"XV2-23T",pn:"XV2-23T0B00-RW",cat:"Wi-Fi",f:"Wi-Fi 6",t:["Wi-Fi 6","Externo"],preco:3092.84,d:"Ponto de acesso Wi-Fi 6 para ambiente externo, gerenciado pelo cnMaestro."},
+ {id:"x7-35x",nome:"X7-35X",pn:"X7-35X-0A00-RW",cat:"Wi-Fi",f:"Wi-Fi 7",t:["Wi-Fi 7","Interno"],preco:3998.06,d:"Ponto de acesso Wi-Fi 7 para ambiente interno, para redes corporativas de alta densidade."},
+ {id:"ex2028p",nome:"EX2028-P",pn:"MX-EX2028PxA-0",cat:"Switch",f:"Switch",t:["PoE","cnMatrix"],preco:10036.54,d:"Switch cnMatrix com PoE, operado junto aos pontos de acesso cnPilot pelo cnMaestro."}
 ];
+var FILTERS=[["Todos","Todos"],["5 GHz","Rádio 5 GHz"],["6 GHz","Rádio 6 GHz"],["Wi-Fi 6","Wi-Fi 6"],["Wi-Fi 7","Wi-Fi 7"],["Switch","Switch"]];
 var brl=function(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})};
 var $=function(s){return document.querySelector(s)};
-var user=null,addr={},cart={},filter="Todos",step="cart",pay="pix",lastFocus=null;
+var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})};
+var digits=function(s){return String(s||"").replace(/\D/g,"")};
+var user=null,addr={},cardv={},errs={},cart={},filter="Todos",step="cart",pay="pix",lastFocus=null,orderNo="";
 
-function renderFilters(){
-  var cats=["Todos","Radio","Wi-Fi","Switch"];
-  $("#filters").innerHTML=cats.map(function(c){return '<button type="button" data-c="'+c+'" aria-pressed="'+(c===filter)+'">'+c+'</button>'}).join("");
+/* Regras de validacao. Cada regra devolve a mensagem de erro, ou "" quando o valor e valido. */
+var ARULES={
+  nome:function(v){return v.trim().length>=3?"":"Informe o nome ou a razão social."},
+  doc:function(v){var n=digits(v).length;return n===11||n===14?"":"Informe um CPF com 11 dígitos ou um CNPJ com 14 dígitos."},
+  email:function(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())?"":"Informe um e-mail válido, como compras@empresa.com.br."},
+  tel:function(v){var n=digits(v).length;return n===10||n===11?"":"Informe o telefone com DDD."},
+  cep:function(v){return digits(v).length===8?"":"Informe o CEP com 8 dígitos."},
+  rua:function(v){return v.trim()?"":"Informe o endereço."},
+  num:function(v){return v.trim()?"":"Informe o número ou escreva s/n."},
+  cidade:function(v){return v.trim()?"":"Informe a cidade."},
+  uf:function(v){return /^[A-Za-z]{2}$/.test(v.trim())?"":"Informe a UF com 2 letras."}
+};
+var CRULES={
+  cn:function(v){var n=digits(v).length;return n>=13&&n<=16?"":"Informe o número do cartão."},
+  cname:function(v){return v.trim().length>=3?"":"Informe o nome impresso no cartão."},
+  cv:function(v){return /^(0[1-9]|1[0-2])\/\d{2}$/.test(v)?"":"Informe a validade no formato MM/AA."},
+  cc:function(v){var n=digits(v).length;return n===3||n===4?"":"Informe o CVV com 3 ou 4 dígitos."}
+};
+function check(rules,obj){var first=null;Object.keys(rules).forEach(function(k){var m=rules[k](obj[k]||"");errs[k]=m;if(m&&!first)first=k});return first}
+function setErr(k,m,pre){errs[k]=m;var s=$("#e_"+k);if(s)s.textContent=m;var i=$("#"+pre+k);if(i){if(m)i.setAttribute("aria-invalid","true");else i.removeAttribute("aria-invalid")}}
+function focusF(id){var el=$("#"+id);if(el)el.focus()}
+
+function renderFilters(n){
+  $("#filters").innerHTML=FILTERS.map(function(c){return '<button type="button" data-c="'+c[0]+'" aria-pressed="'+(c[0]===filter)+'">'+c[1]+'</button>'}).join("")+'<span class="cnt" id="cnt" aria-live="polite"></span>';
 }
 function renderGrid(){
-  $("#grid").innerHTML=P.filter(function(p){return filter==="Todos"||p.cat===filter}).map(function(p){
+  var v=P.filter(function(p){return filter==="Todos"||p.f===filter});
+  $("#grid").innerHTML=v.map(function(p){
     return '<article class="card"><div class="ph"><img src="assets/produtos/'+p.id+'.png" alt="'+p.nome+'" loading="lazy"></div>'+
-    '<div class="bd"><span class="label">'+p.cat+'</span><h3>'+p.nome+'</h3><span class="pn">PN '+p.pn+'</span><p>'+p.d+'</p>'+
+    '<div class="bd"><span class="label">'+p.cat+'</span><h3>'+p.nome+'</h3>'+
+    '<div class="chips">'+p.t.map(function(x){return '<span>'+x+'</span>'}).join("")+'</div>'+
+    '<span class="pn">PN '+p.pn+'</span><p>'+p.d+'</p>'+
     '<div class="price">'+brl(p.preco)+'<small>Preço-base, validar contra tabela vigente</small></div>'+
     '<button class="buy" type="button" data-id="'+p.id+'">Comprar</button></div></article>';
   }).join("");
+  $("#cnt").textContent=v.length+(v.length===1?" produto":" produtos");
 }
 function items(){return P.filter(function(p){return cart[p.id]})}
 function total(){return items().reduce(function(s,p){return s+p.preco*cart[p.id]},0)}
@@ -188,7 +235,7 @@ function count(){return Object.keys(cart).reduce(function(s,k){return s+cart[k]}
 function updCount(){$("#count").textContent=count()}
 
 function openDrawer(){lastFocus=document.activeElement;$("#scrim").hidden=false;$("#drawer").hidden=false;renderDrawer();$("#close").focus()}
-function closeDrawer(){$("#scrim").hidden=true;$("#drawer").hidden=true;if(step==="done"){cart={};updCount()}step="cart";if(lastFocus)lastFocus.focus()}
+function closeDrawer(){$("#scrim").hidden=true;$("#drawer").hidden=true;if(step==="done"){cart={};updCount()}step="cart";errs={};if(lastFocus)lastFocus.focus()}
 
 function qrSvg(){
   var n=25,seed=20261115,r=function(){seed=(seed*1664525+1013904223)>>>0;return seed/4294967296},s='';
@@ -202,8 +249,27 @@ function qrSvg(){
   return '<svg viewBox="0 0 '+n+' '+n+'" role="img" aria-label="QR Code ilustrativo, não pagável" fill="#000" shape-rendering="crispEdges">'+s+'</svg>';
 }
 
+/* Indicador de etapas: so a etapa atual mostra o nome, as outras mostram o numero. */
+function stepsHtml(){
+  var S=[["cart","Carrinho"],["addr","Entrega"],["pay","Pagamento"],["done","Confirmação"]],idx=S.map(function(x){return x[0]}).indexOf(step);
+  return '<ol class="steps" aria-label="Etapas da compra">'+S.map(function(s,i){
+    return '<li class="'+(i<idx?'dn':i===idx?'on':'')+'"'+(i===idx?' aria-current="step"':'')+'><b>'+(i+1)+'</b><span class="lb">'+s[1]+'</span></li>'}).join("")+'</ol>';
+}
+function summary(){
+  var n=count();
+  return '<details class="sum"><summary>Resumo do pedido ('+n+(n===1?' item':' itens')+')</summary>'+
+    items().map(function(p){return '<div class="sl"><span>'+cart[p.id]+' x '+esc(p.nome)+'</span><span>'+brl(p.preco*cart[p.id])+'</span></div>'}).join("")+
+    (addr.rua?'<p class="note">Entrega em: '+esc([addr.rua,addr.num,addr.cidade,addr.uf].filter(Boolean).join(", "))+'</p>':'')+'</details>';
+}
+var FRETE='<p class="fr">Frete não incluso no total. Na versão real, calculado pelo CEP.</p>';
+var ER=function(k){return '<span class="err" id="e_'+k+'" role="alert">'+esc(errs[k]||"")+'</span>'};
+var AC={nome:"name",email:"email",tel:"tel",cep:"postal-code",rua:"address-line1",comp:"address-line2",cidade:"address-level2",uf:"address-level1"};
+function fld(k,l,ph){return '<div class="f"><label for="a_'+k+'">'+l+'</label><input id="a_'+k+'" data-k="'+k+'" value="'+esc(addr[k])+'" placeholder="'+ph+'" autocomplete="'+(AC[k]||"off")+'"'+(errs[k]?' aria-invalid="true"':'')+' aria-describedby="e_'+k+'">'+ER(k)+'</div>'}
+function cfld(k,l,ph,attrs){return '<div class="f"><label for="c_'+k+'">'+l+'</label><input id="c_'+k+'" data-ck="'+k+'" value="'+esc(cardv[k])+'" placeholder="'+ph+'" autocomplete="off" '+(attrs||"")+(errs[k]?' aria-invalid="true"':'')+' aria-describedby="e_'+k+'">'+ER(k)+'</div>'}
+
 function renderDrawer(){
   var b=$("#dbody"),f=$("#dfoot"),t=$("#dtitle");
+  $("#steps").innerHTML=step==="login"?"":stepsHtml();
   if(step==="cart"){
     t.textContent="Carrinho";
     var it=items();
@@ -213,35 +279,32 @@ function renderDrawer(){
     f.innerHTML='<div class="tot"><span>Total</span><span>'+brl(total())+'</span></div><button class="cta" type="button" data-go="addr">Continuar para entrega</button>';
   }else if(step==="pay"){
     t.textContent="Pagamento";
-    b.innerHTML='<div class="tabs" role="group" aria-label="Forma de pagamento"><button type="button" data-pay="pix" aria-pressed="'+(pay==="pix")+'">PIX</button><button type="button" data-pay="card" aria-pressed="'+(pay==="card")+'">Cartão</button></div>'+
+    b.innerHTML=summary()+'<div class="tabs" role="group" aria-label="Forma de pagamento"><button type="button" data-pay="pix" aria-pressed="'+(pay==="pix")+'">PIX</button><button type="button" data-pay="card" aria-pressed="'+(pay==="card")+'">Cartão</button></div>'+
     (pay==="pix"?
       '<div class="qr">'+qrSvg()+'<p class="note" style="margin:0">QR Code ilustrativo. Não é um PIX real e não pode ser pago.</p>'+
       '<div class="copy" style="width:100%"><input id="pixc" readonly value="DEMO.PIX.0000.NAO-PAGAVEL" aria-label="Código PIX copia e cola"><button type="button" id="cp">Copiar</button></div></div>'
     :
       '<form id="cf" autocomplete="off" novalidate>'+
-      '<div class="f"><label for="cn">Número do cartão</label><input id="cn" inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000" autocomplete="off"></div>'+
-      '<div class="f"><label for="cname">Nome impresso no cartão</label><input id="cname" placeholder="NOME SOBRENOME" autocomplete="off"></div>'+
-      '<div class="two"><div class="f"><label for="cv">Validade</label><input id="cv" inputmode="numeric" maxlength="5" placeholder="MM/AA" autocomplete="off"></div>'+
-      '<div class="f"><label for="cc">CVV</label><input id="cc" inputmode="numeric" maxlength="4" placeholder="000" autocomplete="off"></div></div>'+
+      cfld("cn","Número do cartão","0000 0000 0000 0000",'inputmode="numeric" maxlength="19"')+
+      cfld("cname","Nome impresso no cartão","NOME SOBRENOME")+
+      '<div class="two">'+cfld("cv","Validade","MM/AA",'inputmode="numeric" maxlength="5"')+cfld("cc","CVV","000",'inputmode="numeric" maxlength="4"')+'</div>'+
       '<p class="note">Formulário de demonstração. Nenhum dado é enviado ou armazenado.</p></form>');
-    f.innerHTML='<div class="tot"><span>Total</span><span>'+brl(total())+'</span></div><button class="cta" type="button" data-go="done">'+(pay==="pix"?'Simular pagamento PIX':'Simular pagamento com cartão')+'</button><button class="cta ghost" type="button" data-go="addr">Voltar à entrega</button>';
+    f.innerHTML=FRETE+'<div class="tot"><span>Total</span><span>'+brl(total())+'</span></div><button class="cta" type="button" data-go="done">'+(pay==="pix"?'Simular pagamento PIX':'Simular pagamento com cartão')+'</button><button class="cta ghost" type="button" data-go="addr">Voltar à entrega</button>';
   }else if(step==="addr"){
     t.textContent="Entrega";
-    var fld=function(k,l,ph){return '<div class="f"><label for="a_'+k+'">'+l+'</label><input id="a_'+k+'" data-k="'+k+'" value="'+(addr[k]||"")+'" placeholder="'+ph+'" autocomplete="off"></div>'};
-    b.innerHTML=(user?'<p class="note" style="margin-top:0">Comprando como '+user+'</p>':'<p class="note" style="margin-top:0">Já tem conta? <a href="#" id="toLogin" style="color:var(--link);font-weight:700">Entrar</a></p>')+
-      fld("nome","Nome completo ou razão social","Empresa Exemplo Ltda")+fld("doc","CPF ou CNPJ","00.000.000/0000-00")+fld("email","E-mail","compras@empresa.com.br")+fld("tel","Telefone","(21) 90000-0000")+
-      '<div class="two">'+fld("cep","CEP","00000-000")+fld("uf","UF","RJ")+'</div>'+fld("rua","Endereço","Rua Exemplo")+'<div class="two">'+fld("num","Número","100")+fld("comp","Complemento","Sala 2")+'</div>'+fld("cidade","Cidade","Rio de Janeiro");
-    f.innerHTML='<div class="tot"><span>Total</span><span>'+brl(total())+'</span></div><button class="cta" type="button" data-go="pay">Continuar para o pagamento</button><button class="cta ghost" type="button" data-go="cart">Voltar ao carrinho</button>';
+    b.innerHTML=summary()+(user?'<p class="note" style="margin-top:0">Comprando como '+esc(user)+'</p>':'<p class="note" style="margin-top:0">Já tem conta? <a href="#" id="toLogin" style="color:var(--link);font-weight:700">Entrar</a></p>')+
+      '<fieldset class="fs"><legend>Contato</legend>'+fld("nome","Nome completo ou razão social","Empresa Exemplo Ltda")+fld("doc","CPF ou CNPJ","00.000.000/0000-00")+fld("email","E-mail","compras@empresa.com.br")+fld("tel","Telefone com DDD","(21) 90000-0000")+'</fieldset>'+
+      '<fieldset class="fs"><legend>Endereço de entrega</legend>'+fld("cep","CEP","00000-000")+fld("rua","Endereço","Rua Exemplo")+'<div class="two">'+fld("num","Número","100")+fld("comp","Complemento (opcional)","Sala 2")+'</div><div class="two">'+fld("cidade","Cidade","Rio de Janeiro")+fld("uf","UF","RJ")+'</div></fieldset>';
+    f.innerHTML=FRETE+'<div class="tot"><span>Total</span><span>'+brl(total())+'</span></div><button class="cta" type="button" data-go="pay">Continuar para o pagamento</button><button class="cta ghost" type="button" data-go="cart">Voltar ao carrinho</button>';
   }else if(step==="login"){
     t.textContent="Entrar";
     b.innerHTML='<div class="f"><label for="lg_e">E-mail</label><input id="lg_e" type="email" placeholder="voce@empresa.com.br" autocomplete="off"></div><div class="f"><label for="lg_p">Senha</label><input id="lg_p" type="password" placeholder="Qualquer senha" autocomplete="off"></div><p class="note">Login de demonstração. Qualquer e-mail entra.</p>';
     f.innerHTML='<button class="cta" type="button" data-go="dologin">Entrar</button><button class="cta ghost" type="button" data-go="close">Cancelar</button>';
   }else{
     t.textContent="Pedido simulado";
-    var n="DEMO-"+Math.floor(100000+Math.random()*900000);
     b.innerHTML='<div class="center" style="padding-top:24px"><div class="ok"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></div>'+
     '<h2 style="color:var(--head);margin:0 0 8px">Pagamento '+(pay==="pix"?"PIX":"com cartão")+' confirmado na simulação</h2>'+
-    '<p>Pedido <b>'+n+'</b> no valor de <b>'+brl(total())+'</b>.</p>'+(addr.rua?'<p class="note">Entrega em: '+[addr.rua,addr.num,addr.cidade,addr.uf].filter(Boolean).join(", ")+'</p>':'')+'<p class="note">Este é um fluxo de demonstração. Nenhuma cobrança foi feita e nenhum pedido existe.</p></div>';
+    '<p>Pedido <b>'+orderNo+'</b> no valor de <b>'+brl(total())+'</b>.</p>'+(addr.rua?'<p class="note">Entrega em: '+esc([addr.rua,addr.num,addr.cidade,addr.uf].filter(Boolean).join(", "))+'</p>':'')+'<p class="note">Este é um fluxo de demonstração. Nenhuma cobrança foi feita e nenhum pedido existe.</p></div>';
     f.innerHTML='<button class="cta" type="button" data-go="close">Voltar à loja</button>';
   }
 }
@@ -255,24 +318,36 @@ document.addEventListener("click",function(e){
   else if(el.dataset.c){filter=el.dataset.c;renderFilters();renderGrid()}
   else if(el.classList.contains("buy")){cart[el.dataset.id]=(cart[el.dataset.id]||0)+1;updCount();step="cart";openDrawer()}
   else if(el.dataset.q){var id=el.dataset.id;cart[id]=(cart[id]||0)+Number(el.dataset.q);if(cart[id]<=0)delete cart[id];updCount();renderDrawer()}
-  else if(el.dataset.pay){pay=el.dataset.pay;renderDrawer()}
+  else if(el.dataset.pay){pay=el.dataset.pay;errs={};renderDrawer()}
   else if(el.id==="cp"){var i=$("#pixc");var ok=function(){el.textContent="Copiado"};try{navigator.clipboard.writeText(i.value).then(ok,function(){i.select()})}catch(x){i.select()}}
   else if(el.dataset.go==="close"){closeDrawer()}
-  else if(el.dataset.go){step=el.dataset.go;renderDrawer()}
+  else if(el.dataset.go){
+    var g=el.dataset.go,bad;
+    if(g==="pay"&&step==="addr"){bad=check(ARULES,addr);if(bad){renderDrawer();focusF("a_"+bad);return}}
+    if(g==="done"&&pay==="card"){bad=check(CRULES,cardv);if(bad){renderDrawer();focusF("c_"+bad);return}}
+    if(g==="done")orderNo="DEMO-"+Math.floor(100000+Math.random()*900000);
+    errs={};step=g;renderDrawer();
+  }
 });
 document.addEventListener("click",function(e){if(e.target.id==="scrim")closeDrawer()});
 document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("#drawer").hidden)closeDrawer()});
 document.addEventListener("click",function(e){if(e.target.id==="toLogin"){e.preventDefault();step="login";renderDrawer()}});
 document.addEventListener("input",function(e){
-  var el=e.target;
-  if(el.dataset&&el.dataset.k)addr[el.dataset.k]=el.value;
-  if(el.id==="a_cep"){var d=el.value.replace(/\D/g,"").slice(0,8);el.value=d.length>5?d.slice(0,5)+"-"+d.slice(5):d;addr.cep=el.value;
-    if(d.length===8)fetch("https://viacep.com.br/ws/"+d+"/json/").then(function(r){return r.json()}).then(function(j){if(j.erro)return;
-      [["rua",j.logradouro],["cidade",j.localidade],["uf",j.uf]].forEach(function(p){addr[p[0]]=p[1];var i=$("#a_"+p[0]);if(i)i.value=p[1]});
-      var n=$("#a_num");if(n)n.focus()}).catch(function(){/* sem rede ou bloqueado: usuario digita o endereco */})}
-  if(el.id==="cn")el.value=el.value.replace(/\D/g,"").slice(0,16).replace(/(.{4})/g,"$1 ").trim();
-  if(el.id==="cv"){var d=el.value.replace(/\D/g,"").slice(0,4);el.value=d.length>2?d.slice(0,2)+"/"+d.slice(2):d}
-  if(el.id==="cc")el.value=el.value.replace(/\D/g,"").slice(0,4);
+  var el=e.target,k=el.dataset&&el.dataset.k,ck=el.dataset&&el.dataset.ck;
+  if(ck==="cn")el.value=digits(el.value).slice(0,16).replace(/(.{4})/g,"$1 ").trim();
+  if(ck==="cv"){var d=digits(el.value).slice(0,4);el.value=d.length>2?d.slice(0,2)+"/"+d.slice(2):d}
+  if(ck==="cc")el.value=digits(el.value).slice(0,4);
+  if(ck){cardv[ck]=el.value;if(errs[ck])setErr(ck,"","c_")}
+  if(k==="cep"){var c=digits(el.value).slice(0,8);el.value=c.length>5?c.slice(0,5)+"-"+c.slice(5):c}
+  if(k){addr[k]=el.value;if(errs[k])setErr(k,"","a_")}
+  if(k==="cep"&&digits(el.value).length===8){
+    /* ViaCEP. Bloqueado no Artifact: nesse caso a pessoa preenche o endereco. */
+    fetch("https://viacep.com.br/ws/"+digits(el.value)+"/json/").then(function(r){return r.json()}).then(function(j){
+      if(j.erro){setErr("cep","Não achamos esse CEP. Preencha o endereço manualmente.","a_");return}
+      [["rua",j.logradouro],["cidade",j.localidade],["uf",j.uf]].forEach(function(p){addr[p[0]]=p[1];var i=$("#a_"+p[0]);if(i)i.value=p[1];setErr(p[0],"","a_")});
+      var n=$("#a_num");if(n)n.focus()
+    }).catch(function(){setErr("cep","Consulta de CEP indisponível aqui. Preencha o endereço manualmente.","a_")});
+  }
 });
 renderFilters();renderGrid();updCount();
 </script>
